@@ -1,11 +1,12 @@
 # ****** File Options ****** #
 
+
                    config_file = 
           solution_output_file = 
         initial_condition_file = none
-                      log_file = maDGiCart
+                      log_file = Euler
                  log_frequency = 1
-                    save_every = 100
+                    save_every = 1000000
 
 # ****** Physics Options ****** #
 
@@ -31,14 +32,14 @@
 
 # ****** Time Stepping Options ****** #
 
-               time_integrator = rk3ssp
-                time_step_size = 1e-06
+               time_integrator = euler
+                time_step_size = 1e-07
                   initial_time = 0
                     final_time = 1
-                max_time_steps = 1000
+                max_time_steps = 10000000
              use_cfl_time_step = false
                            cfl = 1
-        use_adaptive_time_step = true
+        use_adaptive_time_step = false
             min_time_step_size = 2.22045e-14
             max_time_step_size = 1.79769e+306
               time_rel_err_tol = 1e-06
