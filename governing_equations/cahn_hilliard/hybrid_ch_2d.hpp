@@ -6,6 +6,7 @@
 #include "data_structures/scalar_solution_state.hpp"
 #include "governing_equations/time_integrable_rhs.hpp"
 #include "spatial_discretization/discretization_2d_cart.hpp"
+#include <torch/script.h>
 
 
 class HybridCH2DFD : public HybridCHBase {
@@ -35,4 +36,6 @@ class HybridCH2DFD : public HybridCHBase {
   std::unique_ptr<ManagedArray2D<real_wp>> laplacian_argument_;
   std::unique_ptr<ManagedArray2D<real_wp>> biharmonic_term_;
   std::unique_ptr<ManagedArray2D<real_wp>> linear_term_;
+
+  torch::jit::script::Module nn_; // Neural network for computing the data-driven component of PDE
 };
