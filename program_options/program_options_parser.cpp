@@ -97,6 +97,9 @@ ProgramOptionsParser::ProgramOptionsParser()
       "initial_condition_file",
       po::value<std::string>(&Options::get().initial_condition_file_)->default_value("none"),
       "Filename containing and initial solution. Overrides input values if not 'none'.")(
+      "hybrid_nn_filename",
+      po::value<std::string>(&Options::get().hybrid_nn_filename_)->default_value("none"),
+      "Filename containing a neural network for hybrid modeling. Overrides input values if not 'none'.")(
       "log_file",
       po::value<std::string>(&Options::get().log_file_)->default_value("maDGiCart"),
       "Solution output file name, without file extension.")(

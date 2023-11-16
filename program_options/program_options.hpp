@@ -23,6 +23,7 @@ class Options {
   const std::string& config_file() const { return config_file_; }
   const std::string& solution_output_file() const { return solution_output_file_; }
   const std::string& initial_condition_file() const { return initial_condition_file_; }
+  const std::string& hybrid_nn_filename() const { return hybrid_nn_filename_; }
   const std::string& log_file() const { return log_file_; }
   int                log_frequency() const { return log_frequency_; }
   int                save_every() const { return save_every_; }
@@ -91,6 +92,7 @@ class Options {
   std::string config_file_;
   std::string solution_output_file_;
   std::string initial_condition_file_;
+  std::string hybrid_nn_filename_;
   std::string log_file_;
   int         log_frequency_;
   int         save_every_;
