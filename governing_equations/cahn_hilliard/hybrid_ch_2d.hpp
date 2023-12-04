@@ -32,10 +32,7 @@ class HybridCH2DFD : public HybridCHBase {
  private:
   Discretization2DCart& geom_;
 
-  std::unique_ptr<ManagedArray2D<real_wp>> laplacian_rhs_term_;
-  std::unique_ptr<ManagedArray2D<real_wp>> laplacian_argument_;
-  std::unique_ptr<ManagedArray2D<real_wp>> biharmonic_term_;
-  std::unique_ptr<ManagedArray2D<real_wp>> linear_term_;
+  std::unique_ptr<ManagedArray2D<real_wp>> rhs_;
 
   torch::jit::script::Module nn_; // Neural network for computing the data-driven component of PDE
 };
