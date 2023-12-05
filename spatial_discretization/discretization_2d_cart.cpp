@@ -1,4 +1,5 @@
 #include "discretization_2d_cart.hpp"
+#include <torch/script.h>
 
 #include <memory>
 
@@ -193,6 +194,26 @@ Discretization2DCart::biharmonic(const ManagedArray2D<real_wp>& state_in, Manage
                    8.0 * f(i - 1, j) + 20.0 * f(i, j) - 8.0 * f(i + 1, j) + f(i + 2, j) + 2.0 * f(i - 1, j - 1) -
                    8.0 * f(i, j - 1) + 2.0 * f(i + 1, j - 1) + 1.0 * f(i, j - 2)) /
                   dx4;
+  });
+}
+
+void
+Discretization2DCart::nn_2d_stencil(const ManagedArray2D<real_wp>& state_in, ManagedArray2D<real_wp>& state_out, const torch::jit::script::Module& nn) const
+{
+  auto state     = read_access(state_in);
+  auto rhs       = write_access(state_out);
+  auto idx       = read_access(interiorIndices());
+
+  const real_wp dx2 = dx() * dx();
+
+  maDGForAll(ii, 0, idx.size(), {
+    int i;
+    int j;
+    state.getIJ(idx[ii], i, j);
+
+    rhs(i,j)  = nn( state(i,j) , state(i-1,j) , state(i+1,j) , state(i,j-1) , state(i,j+1) , 
+                    state(i+1,j+1) , state(i+1,j-1) , state(i-1,j+1) , state(i-1,j-1) , 
+                    state(i+2,j) , state(i-2,j) , state(i,j+2) , state(i,j-2) );
   });
 }
 
