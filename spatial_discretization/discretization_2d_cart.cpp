@@ -211,9 +211,14 @@ Discretization2DCart::nn_2d_stencil(const ManagedArray2D<real_wp>& state_in, Man
     int j;
     state.getIJ(idx[ii], i, j);
 
-    rhs(i,j)  = nn( state(i,j) , state(i-1,j) , state(i+1,j) , state(i,j-1) , state(i,j+1) , 
-                    state(i+1,j+1) , state(i+1,j-1) , state(i-1,j+1) , state(i-1,j-1) , 
-                    state(i+2,j) , state(i-2,j) , state(i,j+2) , state(i,j-2) );
+    std::vector<torch::jit::IValue> inputs;
+    inputs.push_back( state(i,j) ); 
+    inputs.push_back( state(i-1,j) ); inputs.push_back( state(i+1,j) ); inputs.push_back( state(i,j-1) ); inputs.push_back( state(i,j+1) );
+    inputs.push_back( state(i+1,j+1) ); inputs.push_back( state(i+1,j-1) ); inputs.push_back( state(i-1,j+1) ); inputs.push_back( state(i-1,j-1) );
+    inputs.push_back( state(i+2,j) ); inputs.push_back( state(i-2,j) ); inputs.push_back( state(i,j+2) ); inputs.push_back( state(i,j-2) );
+
+    at::Tensor output = module.forward(inputs).toTensor();
+    rhs(i,j) = output;
   });
 }
 
