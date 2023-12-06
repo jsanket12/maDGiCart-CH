@@ -218,7 +218,8 @@ Discretization2DCart::nn_2d_stencil(const ManagedArray2D<real_wp>& state_in, Man
     inputs.push_back( state(i+2,j) ); inputs.push_back( state(i-2,j) ); inputs.push_back( state(i,j+2) ); inputs.push_back( state(i,j-2) );
 
     at::Tensor output = module.forward(inputs).toTensor();
-    rhs(i,j) = output;
+    std::vector<float> v( output.data_ptr<float>() , output.data_ptr<float>() + output.numel() );
+    rhs(i,j) = v[0];
   });
 }
 
