@@ -42,3 +42,21 @@ HybridCH2DFD::evalRHSImpl(const SolutionState& flovars, double time, SolutionSta
   }
 
 }
+
+std::unique_ptr<CSRMatrix> HybridCH2DFD::createSparseMatrix() const
+{
+  Logger::get().FatalMessage("HybridCH2DFD::createSparseMatrix() not implemented");
+  return nullptr;
+}
+
+void HybridCH2DFD::evalJacobian(const SolutionState& flovars, double time, CSRMatrix& J)
+{
+  Logger::get().FatalMessage("HybridCH2DFD::evalJacobian() not implemented");
+}
+
+
+std::vector<int> HybridCH2DFD::nNonZerosPerRow() const
+{
+  Logger::get().FatalMessage("HybridCH2DFD::nNonZerosPerRow() not implemented");
+  return {};
+}
