@@ -1,5 +1,4 @@
 #include "discretization_2d_cart.hpp"
-#include <torch/script.h>
 
 #include <memory>
 
@@ -198,7 +197,7 @@ Discretization2DCart::biharmonic(const ManagedArray2D<real_wp>& state_in, Manage
 }
 
 void
-Discretization2DCart::nn_2d_stencil(const ManagedArray2D<real_wp>& state_in, ManagedArray2D<real_wp>& state_out, const torch::jit::script::Module& nn) const
+Discretization2DCart::nn_2d_stencil(const ManagedArray2D<real_wp>& state_in, ManagedArray2D<real_wp>& state_out, torch::jit::script::Module& nn)
 {
   auto state     = read_access(state_in);
   auto rhs       = write_access(state_out);

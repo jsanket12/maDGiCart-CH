@@ -2,7 +2,7 @@
 
 #include "data_structures/managed_array_2d.hpp"
 #include "spatial_discretization.hpp"
-
+#include <torch/script.h>
 
 class Discretization2DCart : public SpatialDiscretization {
  public:
@@ -27,6 +27,7 @@ class Discretization2DCart : public SpatialDiscretization {
 
   void laplacian(const ManagedArray2D<real_wp>& state_in, ManagedArray2D<real_wp>& del2state_out) const;
   void biharmonic(const ManagedArray2D<real_wp>& state_in, ManagedArray2D<real_wp>& del4state_out) const;
+  void nn_2d_stencil(const ManagedArray2D<real_wp>& state_in, ManagedArray2D<real_wp>& state_out, torch::jit::script::Module& nn);
 
   const ManagedArray2DOwning<real_wp>& x() const { return x_coord_; }
   const ManagedArray2DOwning<real_wp>& y() const { return y_coord_; }

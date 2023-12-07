@@ -3,6 +3,9 @@ project(maDGiCart)
 
 include(ExternalProject)
 
+#list(APPEND CMAKE_PREFIX_PATH "/home/adegennaro/Projects/exalearn/libtorch")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread") # needed for libtorch
+find_package(Torch REQUIRED)
 find_package(Boost REQUIRED COMPONENTS regex program_options log log_setup filesystem thread)
 
 set(CXX_COMPILER_STRING "${CMAKE_CXX_COMPILER} ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
@@ -111,6 +114,7 @@ include_directories(
         ${TINYXML2_INCLUDE_DIR}
         ${PETSC_INCLUDES}
         ${ROC_LIB_INCLUDES}
+        ${TORCH_INCLUDE_DIRS}
 )
 
 link_directories(${EXTERNAL_INSTALL_DIR}/lib)
@@ -155,7 +159,7 @@ add_executable(maDGiCart
         maDGiCart_main.cpp
         typedefs.hpp)
 
-target_link_libraries(maDGiCart ${maDG_library_links} discretization RAJA)
+target_link_libraries(maDGiCart ${maDG_library_links} discretization RAJA "${TORCH_LIBRARIES}")
 
 enable_testing()
 add_subdirectory(testing)
