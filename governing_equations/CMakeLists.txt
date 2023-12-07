@@ -4,6 +4,7 @@ set(governing_equations_src
         residual_calculator.cpp
         cahn_hilliard/cahn_hilliard_solution_monitor.cpp
         cahn_hilliard/cahn_hilliard_3d_fd.cpp
+        cahn_hilliard/hybrid_ch_2d.cpp
         initial_conditions_from_file.cpp
         poisson/poisson_3d_fd.cpp
         constant_initial_conditions.cpp
