@@ -203,7 +203,8 @@ Discretization2DCart::nn_2d_stencil(const ManagedArray2D<real_wp>& state_in, Man
   auto rhs       = write_access(state_out);
   auto idx       = read_access(interiorIndices());
 
-  maDGForAll(ii, 0, idx.size(), {
+  // maDGForAll(ii, 0, idx.size(), {
+  for (int ii=0; ii<idx.size(); ii++) {
     int i;
     int j;
     state.getIJ(idx[ii], i, j);
@@ -217,7 +218,7 @@ Discretization2DCart::nn_2d_stencil(const ManagedArray2D<real_wp>& state_in, Man
     at::Tensor output = nn.forward(inputs).toTensor();
     std::vector<float> v( output.data_ptr<float>() , output.data_ptr<float>() + output.numel() );
     rhs(i,j) = v[0];
-  });
+  } //});
 }
 
 std::unique_ptr<ManagedArray2D<real_wp>>
