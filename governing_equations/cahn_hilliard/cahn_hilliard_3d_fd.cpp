@@ -37,7 +37,7 @@ CahnHilliard3DFD::evalRHSImpl(const SolutionState& flovars, double time, Solutio
 void
 CahnHilliard3DFD::evalRHSBasic(const SolutionState& flovars, double time, SolutionState& rhs)
 {
-  profile();
+  madg_profile();
   const ScalarSolutionState3D& state = dynamic_cast<const ScalarSolutionState3D&>(flovars);
 
   geom_.applyPeriodicBoundaryConditions(const_cast<ManagedArray3DNonOwning<real_wp>&>(state.c()));
@@ -103,7 +103,7 @@ CahnHilliard3DFD::evalRHSBasic(const SolutionState& flovars, double time, Soluti
 void
 CahnHilliard3DFD::evalRHSFused(const SolutionState& flovars, double time, SolutionState& rhs)
 {
-  profile();
+  madg_profile();
   const ScalarSolutionState3D& state     = dynamic_cast<const ScalarSolutionState3D&>(flovars);
   ScalarSolutionState3D&       dstate_dt = dynamic_cast<ScalarSolutionState3D&>(rhs);
 
@@ -165,7 +165,7 @@ CahnHilliard3DFD::evalRHSFused(const SolutionState& flovars, double time, Soluti
 void
 CahnHilliard3DFD::evalRHSFullyFused(const SolutionState& flovars, double time, SolutionState& rhs)
 {
-  profile();
+  madg_profile();
   const ScalarSolutionState3D& state     = dynamic_cast<const ScalarSolutionState3D&>(flovars);
   ScalarSolutionState3D&       dstate_dt = dynamic_cast<ScalarSolutionState3D&>(rhs);
 
@@ -370,7 +370,7 @@ std::vector<int> CahnHilliard3DFD::nNonZerosPerRow() const
 void
 CahnHilliard3DFD::evalJacobian(const SolutionState& flovars, double time, CSRMatrix& J)
 {
-  profile();
+  madg_profile();
 //  auto timer = Logger::get().timer("CahnHilliard3DFD::evalJacobian");
 
 //  Logger::get().FatalAssert(

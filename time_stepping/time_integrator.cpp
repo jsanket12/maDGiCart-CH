@@ -13,7 +13,7 @@ TimeIntegrator::TimeIntegrator(TimeIntegrableRHS& rhs, const TimeIntegratorOptio
 
 void TimeIntegrator::solve(TimeIntegrableRHS& rhs, InitialConditions& initial_conditions)
 {
-  profile();
+  madg_profile();
   auto& state = *solution_state_;
 
   initial_conditions.set(rhs, state);

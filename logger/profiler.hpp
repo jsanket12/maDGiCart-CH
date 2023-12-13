@@ -8,7 +8,7 @@
 #include "typedefs.hpp"
 
 
-#define profile() \
+#define madg_profile() \
   auto function_timer = Profiler::FunctionTimer(Profiler::get(), BOOST_CURRENT_FUNCTION);
 
 #define profile_tic(UNIQUE_NAME) \

@@ -107,7 +107,7 @@ Discretization2DCart::printState(const ManagedArray2D<real_wp>& state_in) const
 void
 Discretization2DCart::applyPeriodicBoundaryConditions(ManagedArray2D<real_wp>& state_in) const
 {
-  profile();
+  madg_profile();
   auto      state  = read_write_access(state_in);
   const int nhalos = nhalo();
   const int nis    = ni();

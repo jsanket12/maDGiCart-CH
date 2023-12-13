@@ -250,7 +250,7 @@ template <typename BaseType>
 void
 MemoryManager<BaseType>::copyHostToDevice(MemoryHandle handle)
 {
-  profile();
+  madg_profile();
 #ifdef MADG_USE_CUDA
   cudaErrorCheck(
       cudaMemcpy(deviceData(handle), hostData(handle), data_sizes_.at(handle.index), cudaMemcpyHostToDevice));
@@ -270,7 +270,7 @@ template <typename BaseType>
 void
 MemoryManager<BaseType>::copyDeviceToHost(MemoryHandle handle)
 {
-  profile();
+  madg_profile();
 #ifdef MADG_USE_CUDA
   const int_t size_in_bytes = data_sizes_.at(handle.index);
   cudaErrorCheck(cudaMemcpy(hostData(handle), deviceData(handle), size_in_bytes, cudaMemcpyDeviceToHost));

@@ -7,7 +7,7 @@ Poisson3DFD::Poisson3DFD(Discretization3DCart& geom) : geom_(geom) {}
 void
 Poisson3DFD::evalRHSImpl(const SolutionState& state_in, double time, SolutionState& rhs)
 {
-  profile();
+  madg_profile();
   ScalarSolutionState3D& state =
       const_cast<ScalarSolutionState3D&>(dynamic_cast<const ScalarSolutionState3D&>(state_in));
   ScalarSolutionState3D& dstate_dt = dynamic_cast<ScalarSolutionState3D&>(rhs);
@@ -22,7 +22,7 @@ Poisson3DFD::evalRHSImpl(const SolutionState& state_in, double time, SolutionSta
 void
 Poisson3DFD::addSourceTerm(ScalarSolutionState3D& rhs_in)
 {
-  profile();
+  madg_profile();
   auto x_arr = read_access(geom_.x());
   auto y_arr = read_access(geom_.y());
   auto z_arr = read_access(geom_.z());
@@ -46,7 +46,7 @@ Poisson3DFD::addSourceTerm(ScalarSolutionState3D& rhs_in)
 void
 Poisson3DFD::applyDirichletBoundaryConditions(ScalarSolutionState3D& state_in)
 {
-  profile();
+  madg_profile();
 
   auto state = read_write_access(state_in.c());
   auto x_arr = read_access(geom_.x());

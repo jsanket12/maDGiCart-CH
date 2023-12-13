@@ -72,7 +72,7 @@ Puppeteer::~Puppeteer() = default;
 void
 Puppeteer::run()
 {
-  profile();
+  madg_profile();
   auto run_timer = Logger::get().timer("Starting solver");
 
   time_integrator_->solve(*rhs_, *initial_conditions_);

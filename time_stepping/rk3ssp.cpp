@@ -14,7 +14,7 @@ RK3SSP::RK3SSP(TimeIntegrableRHS& rhs, const TimeIntegratorOptions& opts) : Time
 
 void RK3SSP::doTimeStep(TimeIntegrableRHS& rhs, SolutionState& state, SolutionState& dstate_dt, double time, double dt)
 {
-  profile();
+  madg_profile();
 
   rhs.evalRHSImpl(state, time, *k1_rhs_);
 

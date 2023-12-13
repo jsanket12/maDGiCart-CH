@@ -15,7 +15,7 @@ namespace {
 void
 copyPetscVecToSolutionState(Vec x, const IndexArray& indices, SolutionState& state)
 {
-  profile();
+  madg_profile();
 
   const PetscScalar* petsc_data;
   VecGetArrayRead(x, &petsc_data);
@@ -33,7 +33,7 @@ copyPetscVecToSolutionState(Vec x, const IndexArray& indices, SolutionState& sta
 void
 copySolutionStateToPetscVec(const SolutionState& state, const IndexArray& indices, Vec x)
 {
-  profile();
+  madg_profile();
 
   PetscScalar* petsc_data;
   VecGetArray(x, &petsc_data);
@@ -56,7 +56,7 @@ PetscRHSFunction(TS ts, PetscReal time, Vec x, Vec rhs, void* appctx)
 #ifdef PROFILE_PETSC
   auto timer = Logger::get().timer("PetscRHSFunction");
 #endif
-  profile();
+  madg_profile();
   PetscTimeIntegrator::Ctx& ctx = *(PetscTimeIntegrator::Ctx*)(appctx);
 
   copyPetscVecToSolutionState(x, ctx.instance.rhs().interiorIndices(), ctx.instance.getMutableSolutionState());
@@ -75,7 +75,7 @@ PetscRHSJacobian(TS ts, PetscReal time, Vec x, Mat J, Mat Jpre, void* appctx)
 #ifdef PROFILE_PETSC
   auto timer = Logger::get().timer("PetscRHSJacobian");
 #endif
-  profile();
+  madg_profile();
 
   PetscTimeIntegrator::Ctx& ctx = *(PetscTimeIntegrator::Ctx*)(appctx);
 
@@ -235,7 +235,7 @@ PetscTimeIntegrator::~PetscTimeIntegrator()
 void
 PetscTimeIntegrator::solve(TimeIntegrableRHS& rhs, InitialConditions& initial_conditions)
 {
-  profile();
+  madg_profile();
 
   auto& state0 = getMutableSolutionState();
 

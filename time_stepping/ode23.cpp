@@ -17,7 +17,7 @@ ODE23::ODE23(TimeIntegrableRHS& rhs, const TimeIntegratorOptions& opts)
 void
 ODE23::doTimeStep(TimeIntegrableRHS& rhs, SolutionState& state, SolutionState& dstate_dt, double time, double dt)
 {
-  profile();
+  madg_profile();
 
   // first-same-as-last (FSAL) property.
   if (first_step_) {

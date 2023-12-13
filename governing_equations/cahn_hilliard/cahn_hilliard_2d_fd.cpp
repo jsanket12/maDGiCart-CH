@@ -16,7 +16,7 @@ CahnHilliard2DFD::CahnHilliard2DFD(Discretization2DCart& geom, const CahnHilliar
 void
 CahnHilliard2DFD::evalRHSImpl(const SolutionState& flovars, double time, SolutionState& rhs)
 {
-  profile();
+  madg_profile();
   const ScalarSolutionState2D& state = dynamic_cast<const ScalarSolutionState2D&>(flovars);
 
   geom_.applyPeriodicBoundaryConditions(const_cast<ManagedArray2DNonOwning<real_wp>&>(state.c()));

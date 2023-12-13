@@ -39,7 +39,7 @@ class Observable {
   /// notify specific observers corresponding to the event
   void notifyObservers(const Event& event) const
   {
-    profile();
+    madg_profile();
     /*
      * Note: for (const auto& obs : observers_.at(event))
      * will throw an exception if that event doesn't exist in the map.

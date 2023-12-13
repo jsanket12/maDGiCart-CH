@@ -11,7 +11,7 @@ Euler::Euler(TimeIntegrableRHS& rhs, const TimeIntegratorOptions& opts) : TimeIn
 
 void Euler::doTimeStep(TimeIntegrableRHS& rhs, SolutionState& state, SolutionState& dstate_dt, double time, double dt)
 {
-  profile();
+  madg_profile();
 
   rhs.evalRHSImpl(state, time, *stage_solution_);
 

@@ -162,7 +162,7 @@ Discretization3DCart::interpolateFineToCoarse(
     const SpatialDiscretization& coarse_geom,
     SolutionState&               coarse) const
 {
-  profile();
+  madg_profile();
   auto coarse_idx   = read_access(dynamic_cast<const Discretization3DCart&>(coarse_geom).interiorIndices());
   auto fine_state   = read_access(dynamic_cast<const ScalarSolutionState3D&>(fine).c());
   auto coarse_state = write_access(dynamic_cast<ScalarSolutionState3D&>(coarse).c());
@@ -193,7 +193,7 @@ Discretization3DCart::interpolateCoarseToFine(
     const SpatialDiscretization& fine_geom,
     SolutionState&               fine) const
 {
-  profile();
+  madg_profile();
   auto coarse_idx   = read_access(this->interiorIndices());
   auto coarse_state = read_access(dynamic_cast<const ScalarSolutionState3D&>(coarse).c());
   auto fine_state   = write_access(dynamic_cast<ScalarSolutionState3D&>(fine).c());
@@ -296,7 +296,7 @@ Discretization3DCart::createRealArray() const
 void
 Discretization3DCart::laplacian(const ManagedArray3D<real_wp>& state_in, ManagedArray3D<real_wp>& del2state_out) const
 {
-  profile();
+  madg_profile();
   auto state     = read_access(state_in);
   auto del2state = write_access(del2state_out);
   auto idx       = read_access(interiorIndices());
@@ -354,7 +354,7 @@ Discretization3DCart::biharmonic(const ManagedArray3D<real_wp>& state_in, Manage
 void
 Discretization3DCart::applyPeriodicBoundaryConditions(ManagedArray3D<real_wp>& state_in) const
 {
-  profile();
+  madg_profile();
   auto state    = read_write_access(state_in.asArray());
   auto donor    = read_access(periodic_donor_indices_);
   auto receiver = read_access(periodic_receiver_indices_);
@@ -380,7 +380,7 @@ Discretization3DCart::applyNeumannBoundaryConditions(ManagedArray3D<real_wp>& st
 void
 Discretization3DCart::applyNeumannBCX(ManagedArray3D<real_wp>& state_in) const
 {
-  profile();
+  madg_profile();
   auto state = read_write_access(state_in);
 
   const auto nhalo   = nhalo_;
@@ -403,7 +403,7 @@ Discretization3DCart::applyNeumannBCX(ManagedArray3D<real_wp>& state_in) const
 void
 Discretization3DCart::applyNeumannBCY(ManagedArray3D<real_wp>& state_in) const
 {
-  profile();
+  madg_profile();
   auto state = read_write_access(state_in);
 
   const auto nhalo   = nhalo_;
@@ -426,7 +426,7 @@ Discretization3DCart::applyNeumannBCY(ManagedArray3D<real_wp>& state_in) const
 void
 Discretization3DCart::applyNeumannBCZ(ManagedArray3D<real_wp>& state_in) const
 {
-  profile();
+  madg_profile();
   auto state = read_write_access(state_in);
 
   const auto nhalo   = nhalo_;

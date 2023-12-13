@@ -14,7 +14,7 @@ HybridCH2DFD::HybridCH2DFD(Discretization2DCart& geom, const HybridCHParameters&
 void
 HybridCH2DFD::evalRHSImpl(const SolutionState& flovars, double time, SolutionState& rhs)
 {
-  profile();
+  madg_profile();
   const ScalarSolutionState2D& state = dynamic_cast<const ScalarSolutionState2D&>(flovars);
 
   geom_.applyPeriodicBoundaryConditions(const_cast<ManagedArray2DNonOwning<real_wp>&>(state.c()));
