@@ -21,6 +21,7 @@ target_link_libraries(verification_testing
         dl
         RAJA
         ${OpenMP_CXX_LIBRARIES}
+        "${TORCH_LIBRARIES}"
         )
 
 set_target_properties(verification_testing PROPERTIES

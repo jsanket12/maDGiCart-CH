@@ -26,6 +26,7 @@ target_link_libraries(unit_testing
         dl
         RAJA
         ${OpenMP_CXX_LIBRARIES}
+        "${TORCH_LIBRARIES}"
         )
 
 set_target_properties(unit_testing PROPERTIES

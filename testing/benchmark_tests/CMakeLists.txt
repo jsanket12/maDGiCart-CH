@@ -17,6 +17,7 @@ target_link_libraries(benchmark_testing
         RAJA
         ${OpenMP_CXX_LIBRARIES}
         ${CELERO_LIBRARY}
+        "${TORCH_LIBRARIES}"
         )
 
 set_target_properties(benchmark_testing PROPERTIES

@@ -7,7 +7,7 @@ HybridCH2DFD::HybridCH2DFD(Discretization2DCart& geom, const HybridCHParameters&
     : HybridCHBase(params), geom_(geom)
 {
   rhs_ = geom_.createRealArray();
-  nn_  = torch::jit::load( params_.filename_nn );
+  nn_  = torch::jit::load( this->params().filename_nn() );
 }
 
 
@@ -31,9 +31,6 @@ HybridCH2DFD::evalRHSImpl(const SolutionState& flovars, double time, SolutionSta
     auto rhs     = write_access(dstate_dt.c().asArray());
     auto idx     = read_access(geom_.interiorIndices());
     auto f_nn    = read_access(rhs_->asArray());
-
-    const real_wp eps2 = this->eps2();
-
 
     maDGForAll(ii, 0, idx.size(), {
       const int i = idx[ii];
