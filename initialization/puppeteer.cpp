@@ -7,6 +7,9 @@
 #include "governing_equations/cahn_hilliard/cahn_hilliard_initial_conditions.hpp"
 #include "governing_equations/cahn_hilliard/cahn_hilliard_parameters.hpp"
 #include "governing_equations/cahn_hilliard/cahn_hilliard_solution_monitor.hpp"
+#include "governing_equations/cahn_hilliard/hybrid_ch_2d.hpp"
+#include "governing_equations/cahn_hilliard/hybrid_ch_parameters.hpp"
+#include "governing_equations/cahn_hilliard/hybrid_ch_initial_conditions.hpp"
 #include "governing_equations/poisson/poisson_3d_fd.hpp"
 #include "governing_equations/initial_conditions.hpp"
 #include "governing_equations/constant_initial_conditions.hpp"
@@ -166,8 +169,12 @@ Puppeteer::rhsFactory(SpatialDiscretization& geom)
   else if (Options::get().equation_type() == "poisson") {
     return std::make_unique<Poisson3DFD>(dynamic_cast<Discretization3DCart&>(geom));
   }
+  else if (Options::get().equation_type() == "nn_2d") {
+    HybridCHParameters params;
+    return std::make_unique<HybridCH2DFD>(dynamic_cast<Discretization2DCart&>(geom), params);
+  }
   else {
-    Logger::get().FatalMessage("Only cahn-hilliard and poission equation_type supported.");
+    Logger::get().FatalMessage("Only cahn-hilliard, poission, and nn_2d equation_type supported.");
   }
 
 
@@ -190,8 +197,12 @@ Puppeteer::initialConditionsFactory()
     else if (Options::get().equation_type() == "poisson"){
       return std::make_unique<ConstantInitialConditions>(0.0);
     }
+    else if (Options::get().equation_type() == "nn_2d"){
+      HybridCHParameters params;
+      return std::make_unique<HybridCHInitialConditions>(params);
+    }
     else {
-      Logger::get().FatalMessage("Only cahn-hilliard and poisson supported for initialConditionsFactory");
+      Logger::get().FatalMessage("Only cahn-hilliard, poisson, and nn_2d supported for initialConditionsFactory");
     }
   }
   return nullptr;
